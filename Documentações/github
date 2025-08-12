@@ -1,0 +1,137 @@
+Guia: Como Acessar o GitHub com o Git Bash
+
+📌 1. O que é Git Bash?
+
+O Git Bash é um terminal que permite executar comandos do Git no Windows (e também comandos típicos do Linux).
+Ele é usado para versionar projetos, criar repositórios e interagir com o GitHub diretamente pelo terminal.
+
+📌 2. Pré-requisitos
+Antes de começar, você precisa ter:
+
+Git Bash instalado
+Baixar aqui
+
+Conta no GitHub
+Criar conta
+
+Projeto local para versionar (pode ser um simples arquivo .txt ou código).
+
+📌 3. Configurando o Git no Git Bash
+Abra o Git Bash e configure seu nome e e-mail (os mesmos do GitHub):
+
+bash
+Copiar
+Editar
+git config --global user.name "Seu Nome"
+git config --global user.email "seuemail@example.com"
+Verifique as configurações:
+
+bash
+Copiar
+Editar
+git config --list
+📌 4. Autenticação com o GitHub
+Existem duas formas principais de autenticação:
+
+🔑 Opção 1 — Via HTTPS (com Token)
+No GitHub, vá em Settings → Developer settings → Personal access tokens.
+
+Gere um token com permissões de repo.
+
+Ao fazer git push pela primeira vez, use:
+
+Usuário → Seu usuário do GitHub
+
+Senha → O token gerado
+
+Exemplo ao clonar:
+
+bash
+Copiar
+Editar
+git clone https://github.com/usuario/repositorio.git
+🔑 Opção 2 — Via SSH (mais segura)
+Gerar chave SSH:
+
+bash
+Copiar
+Editar
+ssh-keygen -t rsa -b 4096 -C "seuemail@example.com"
+Aperte Enter até concluir.
+
+Iniciar o agente SSH:
+
+bash
+Copiar
+Editar
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+Copiar a chave pública:
+
+bash
+Copiar
+Editar
+cat ~/.ssh/id_rsa.pub
+No GitHub, vá em Settings → SSH and GPG keys → New SSH key, cole a chave e salve.
+
+Testar conexão:
+
+bash
+Copiar
+Editar
+ssh -T git@github.com
+Se aparecer algo como "Hi, seu-usuario! You've successfully authenticated", está pronto.
+
+📌 5. Clonando um Repositório
+
+bash
+Copiar
+Editar
+# HTTPS
+git clone https://github.com/usuario/repositorio.git
+
+# SSH
+git clone git@github.com:usuario/repositorio.git
+
+📌 6. Enviando um Projeto para o GitHub
+
+Criar um repositório no GitHub (sem README para evitar conflitos).
+
+No terminal:
+
+bash
+Copiar
+Editar
+cd pasta-do-projeto
+git init
+git add .
+git commit -m "Primeiro commit"
+
+# HTTPS
+git remote add origin https://github.com/usuario/repositorio.git
+
+# SSH
+git remote add origin git@github.com:usuario/repositorio.git
+
+git branch -M main
+git push -u origin main
+
+📌 7. Comandos Git Mais Usados
+
+bash
+Copiar
+Editar
+git status       # Verifica status dos arquivos
+git add .        # Adiciona todos os arquivos
+git commit -m "" # Salva alterações no histórico
+git pull         # Atualiza repositório local
+git push         # Envia alterações para o GitHub
+git log          # Histórico de commits
+
+📌 8. Dicas Importantes
+
+Sempre faça git pull antes de começar a editar para evitar conflitos.
+
+Use commits claros e descritivos.
+
+Não suba arquivos desnecessários (use .gitignore).

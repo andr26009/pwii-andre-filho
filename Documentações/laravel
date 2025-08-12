@@ -1,0 +1,240 @@
+## 📌 1. O que é Laravel?
+
+O **Laravel** é um framework PHP moderno e robusto para desenvolvimento de aplicações web. Ele segue o padrão **MVC** (Model-View-Controller) e traz recursos como:
+
+-   Roteamento simples e flexível.
+    
+-   ORM Eloquent para manipulação de banco de dados.
+    
+-   Sistema de migrações.
+    
+-   Autenticação pronta.
+    
+-   Templates Blade.
+    
+-   Integração com filas, jobs, notificações, e-mails, API REST, entre outros.
+    
+
+Seu objetivo é **facilitar o desenvolvimento** e aumentar a produtividade.
+
+----------
+
+## 📌 2. Estrutura MVC no Laravel
+
+-   **Model (M)** → Representa e gerencia os dados (Eloquent ORM).
+    
+-   **View (V)** → Responsável pela interface com o usuário (Blade).
+    
+-   **Controller (C)** → Recebe as requisições, processa a lógica e envia a resposta.
+    
+
+Fluxo básico:
+
+1.  O usuário acessa uma rota.
+    
+2.  A rota chama um **Controller**.
+    
+3.  O Controller manipula um **Model**.
+    
+4.  O Controller retorna uma **View** para o usuário.
+    
+
+----------
+
+## 📌 3. Instalando o Laravel
+
+### Pré-requisitos
+
+-   PHP (>= 8.x)
+    
+-   Composer
+    
+-   MySQL/PostgreSQL (ou outro banco)
+    
+-   Extensões PHP necessárias (`mbstring`, `openssl`, `pdo`, etc.)
+- ### Instalação via Composer
+
+bash
+
+CopiarEditar
+
+`composer create-project laravel/laravel nome-do-projeto` 
+
+Ou, se tiver o instalador do Laravel:
+
+bash
+
+CopiarEditar
+
+`laravel new nome-do-projeto`
+## 📌 4. Estrutura de Pastas
+
+-   `app/` → Lógica da aplicação (Models, Controllers, etc.)
+    
+-   `routes/` → Arquivos de rotas (`web.php`, `api.php`).
+    
+-   `resources/views/` → Templates Blade.
+    
+-   `database/migrations/` → Migrações do banco de dados.
+    
+-   `public/` → Arquivos públicos (CSS, JS, imagens).
+## 📌 5. Criando Rotas
+
+Arquivo: `routes/web.php`
+
+php
+
+CopiarEditar
+
+`use  Illuminate\Support\Facades\Route; Route::get('/', function () { return  view('welcome');
+}); Route::get('/sobre', function () { return  "Página Sobre";
+});` 
+
+----------
+
+## 📌 6. Criando Controllers
+
+bash
+
+CopiarEditar
+
+`php artisan make:controller MeuController` 
+
+Exemplo:
+
+php
+
+CopiarEditar
+
+`namespace  App\Http\Controllers; use  Illuminate\Http\Request; class  MeuController  extends  Controller { public  function  index() { return  view('home');
+    }
+}` 
+
+Rota apontando para o Controller:
+
+php
+
+CopiarEditar
+
+`Route::get('/home', [MeuController::class, 'index']);` 
+
+----------
+
+## 📌 7. Trabalhando com Models e Banco de Dados
+
+Criando um Model com migração:
+
+bash
+
+CopiarEditar
+
+`php artisan make:model Produto -m` 
+
+Arquivo de migração (`database/migrations/...`):
+
+php
+
+CopiarEditar
+
+`public  function  up()
+{ Schema::create('produtos', function (Blueprint $table) { $table->id(); $table->string('nome'); $table->decimal('preco', 8, 2); $table->timestamps();
+    });
+}` 
+
+Rodar a migração:
+
+bash
+
+CopiarEditar
+
+`php artisan migrate` 
+
+----------
+
+## 📌 8. Views com Blade
+
+Exemplo de View (`resources/views/home.blade.php`):
+
+blade
+
+CopiarEditar
+
+`<!DOCTYPE html>
+<html>
+<head>
+    <title>Minha Página</title>
+</head>
+<body>
+    <h1>Olá, {{ $nome }}</h1>
+</body>
+</html>` 
+
+Passando dados do Controller:
+
+php
+
+CopiarEditar
+
+`return  view('home', ['nome' => 'André']);` 
+
+----------
+
+## 📌 9. Artisan — O CLI do Laravel
+
+Comandos úteis:
+
+bash
+
+CopiarEditar
+
+`php artisan serve # Inicia o servidor local php artisan migrate # Executa migrações php artisan make:model # Cria Model php artisan make:controller # Cria Controller php artisan route:list # Lista rotas` 
+
+----------
+
+## 📌 10. Recursos Avançados
+
+-   **Autenticação**:
+    
+    bash
+    
+    CopiarEditar
+    
+    `composer require laravel/ui
+    php artisan ui vue --auth` 
+    
+-   **API REST**:  
+    Rotas no `routes/api.php` usando `Route::apiResource()`.
+    
+-   **Filas e Jobs**:  
+    `php artisan make:job NomeJob`
+    
+-   **Notificações e E-mails**:  
+    `php artisan make:notification NomeNotificacao`
+    
+
+----------
+
+## 📌 11. Boas Práticas
+
+-   Usar **Eloquent** para consultas.
+    
+-   Manter a lógica no **Controller** ou **Services**, não na View.
+    
+-   Usar **Requests** para validar formulários.
+    
+-   Organizar rotas com **Route Groups**.
+    
+-   Usar **.env** para dados sensíveis.
+    
+
+----------
+
+## 📌 12. Próximos Passos
+
+-   Estudar **Middleware**.
+    
+-   Aprender **Policies e Gates** (controle de acesso).
+    
+-   Criar **APIs REST** completas.
+    
+-   Implementar **Testes Automatizados** (`php artisan test`).
